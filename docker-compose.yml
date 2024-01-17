@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  spritelpcapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${PORT}:80"
+    environment:
+      - MONGO_DRIVER=${MONGO_DRIVER}
+      - MONGO_HOST=${MONGO_HOST}
+      - MONGO_USER=${MONGO_USER}
+      - MONGO_PASS=${MONGO_PASS}
+      - MONGO_DB=${MONGO_DB}
+    volumes:
+      - .:/app
