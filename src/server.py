@@ -68,5 +68,5 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(SpriteLPCRouter, tags=["LPC Sprites"], prefix="/lpc-sprites")
+app.include_router(SpriteLPCRouter, tags=["LPC Sprites"], prefix="/lpc")
     

@@ -7,63 +7,64 @@ from pydantic import BaseModel, Field
 from src.utils.validator import PyObjectId
 
 
-class Hair(BaseModel):
+class BasePart(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     name: str
     url: str
     gender: str
-    
-class Head(BaseModel):
-    id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
-    name: str
-    url: str
-    gender: str
-    
-class BodyColor(BaseModel):
-    id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
-    name: str
-    url: str
-    
+
+
+class Hair(BasePart):
+    pass
+
+
+class Head(BasePart):
+    pass
+
+
+class BodyColor(BasePart):
+    pass
+
+
 class Body(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     name: str
     list_body_color: List[BodyColor]
     gender: str
-    
-class Torso(BaseModel):
-    id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
-    name: str
-    url: str
-    gender: str
 
-class Legs(BaseModel):
-    id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
-    name: str
-    url: str
-    gender: str
 
-class Gloves(BaseModel):
-    id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
-    name: str
-    url: str
-    gender: str
+class Torso(BasePart):
+    pass
 
-class Feet(BaseModel):
-    id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
-    name: str
-    url: str
-    gender: str
-    
+
+class Legs(BasePart):
+    pass
+
+
+class Gloves(BasePart):
+    pass
+
+
+class Feet(BasePart):
+    pass
+
+
 class Gender(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     name: str
     body_type: str
-    
-class Shadow(BaseModel):
+
+
+class Category(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     name: str
-    url: str
-    
+    peaces: List[str]
+
+
+class Shadow(BasePart):
+    pass
+
+
 class SpriteLPCModel(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
 
@@ -78,14 +79,14 @@ class SpriteLPCModel(BaseModel):
     shadow: List[Shadow] = []
     height: int
     width: int
-    
+
     created: Optional[datetime] = Field(default_factory=datetime.utcnow)
     updated: Optional[datetime] = Field(default_factory=datetime.utcnow)
 
     class Config:
         arbitrary_types_allowed = True
         json_encoders = {ObjectId: str, datetime: lambda dt: dt.timestamp()}
-        schema_extra = {
+        json_schema_extra = {
             "example": {
                 "hair": [
                     {
@@ -117,4 +118,4 @@ class SpriteLPCModel(BaseModel):
                 ]
             }
         }
-        orm_mode = True
+        from_attributes = True

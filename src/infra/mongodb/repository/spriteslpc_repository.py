@@ -51,7 +51,7 @@ async def add_sprite(sprite_data: dict) -> dict:
 # Retrieve sprites by gender
 async def retrieve_sprites_by_gender(gender: str):
     sprites_list = []
-    async for sprite in sprites_collection.find({"gender": gender}):
+    async for sprite in sprites_collection.find({"gender.name": gender}):
         sprite_model = SpriteLPCModel.parse_obj(sprite)
         sprites_list.append(sprites_helper(sprite_model))
     return sprites_list

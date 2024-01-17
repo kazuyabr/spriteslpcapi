@@ -20,11 +20,7 @@ client = motor.motor_asyncio.AsyncIOMotorClient(MONGO_URI)
 
 db = client[MONGO_DB]
 
-bots_collection = db.bots
-widgets_collection = db.widgets
-documents_collection = db.documents
-organizations_collection = db.organizations
-access_tokens = db.access_tokens
+sprites_collection = db.body
 
 async def connect():
     return db.command("ping")
